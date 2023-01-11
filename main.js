@@ -2,7 +2,6 @@
 
 console.log("Hello World");
 
-
 // Listen for the new game button. 
 
 // When new game button CLICKED, call the new game function. 
