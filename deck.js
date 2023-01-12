@@ -2,8 +2,7 @@ import { Card, CARD_RANK, SUIT_VALUE } from "./card.js";
 
 
 
-// Create 52 cards.
-// Add them to your deck. 
+
 // Where are they located? Have a shuffle method to rearrange them. Place shuffle method in the game. 
 
 // The deck contains the 52 objects. 
@@ -22,10 +21,7 @@ const simpleDeck = new Deck(); // This creates an empty deck.
 
 
 
-Card.prototype.addCard = function(deck) {
-    deck.how_many_cards_in_deck = deck.how_many_cards_in_deck + 1;
-    deck.current_cards.push(this); // It is pushing the default card. Not the correct card. 
-}
+
 
 secondCard.addCard(simpleDeck);
 firstCard.addCard(simpleDeck); // This works.
@@ -47,14 +43,11 @@ return new_deck;
 }
 
 
-
-
 function Deck({num = 0, test = []} = {}) {
     this.how_many_cards_in_deck = num;
     this.current_cards = test;
 }
 
 
-
-export {createNewDeck};
+export {createNewDeck}; // Allows the createNewDeck function to be called in other js files.
 export {firstCard, secondCard, simpleDeck};
