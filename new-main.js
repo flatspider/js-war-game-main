@@ -1,6 +1,6 @@
 // import everything into this file
 
-import * as carddeck from  "./deck.js";
+import * as cardDeck from  "./deck.js";
 
 
 
@@ -8,7 +8,10 @@ import * as carddeck from  "./deck.js";
 
 
 // This works!
+// Not sure if everything should be imported into this new-main file, or if I can reach back.
 console.log("hello TIME");
-console.log(carddeck.partOfDeck);
+//cardDeck.newDeck.value = 3; //This updates the value of the card.
+console.log(cardDeck.createNewDeck()); // No parenthesis. Have to put parenthesis to call the function. 
+//console.log(cardDeck.newDeck);
 
 
