@@ -14,7 +14,8 @@ console.log("hello TIME");
 //console.log(cardDeck.createNewDeck()); // No parenthesis. Have to put parenthesis to call the function. 
 console.log(cardDeck.firstCard);
 console.log(cardDeck.secondCard);
-console.log(cardDeck.simpleDeck.how_many_cards_in_deck);
+console.log(cardDeck.simpleDeck.current_cards);
+console.log(cardDeck.createNewDeck());
 
 
 

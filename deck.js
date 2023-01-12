@@ -23,44 +23,46 @@ const simpleDeck = new Deck(); // This creates an empty deck.
 
 
 
-
-
-
-
-
 Card.prototype.addCard = function(deck) {
     deck.how_many_cards_in_deck = deck.how_many_cards_in_deck + 1;
+    deck.current_cards.push(this); // It is pushing the default card. Not the correct card. 
 }
 
+secondCard.addCard(simpleDeck);
+firstCard.addCard(simpleDeck); // This works.
 
-firstCard.addCard(simpleDeck);
 
-
-
-/*
 
 function createNewDeck(){
 
     const new_deck = new Deck();
-    let temp_card;
 
-    for(let i = 0; i < SUIT_VALUE; i++) {
-        for(let j = 0; j < CARD_RANK; j++){
-            
-            temp_card = new Card({value: SUIT_VALUE[i], suit: CARD_RANK[j]}); //Updated pass in values to be an object.
-            new_deck.how_many_cards_in_deck = new_deck.how_many_cards_in_deck + 1; //Increment the value
-            new_deck.current_cards.push(temp_card); // This should be a method attached to the Deck prototype chain.
 
+
+
+    for (let i = 0; i < CARD_RANK.length; i++){
+
+        for (let j = 0; j < SUIT_VALUE.length; j++){
+            let temp_card = new Card({value: SUIT_VALUE[i], suit: CARD_RANK[2]});
+                temp_card.addCard(new_deck);
 
         }
+        
 
-    }
+    };
+    
+    //let temp_card = new Card({value: SUIT_VALUE[5], suit: CARD_RANK[2]}); //Updated pass in values to be an object.
+     //Increment the value
+    //temp_card.addCard(new_deck);
+            
+            //new_deck.current_cards.push(temp_card); // This should be a method attached to the Deck prototype chain.
 
-return temp_card;
+
+
+
+return new_deck.how_many_cards_in_deck;
 }
 
-
-*/ 
 
 
 
@@ -71,5 +73,5 @@ function Deck({num = 0, test = []} = {}) {
 
 
 
-//export {createNewDeck};
+export {createNewDeck};
 export {firstCard, secondCard, simpleDeck};
