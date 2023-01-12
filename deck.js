@@ -2,10 +2,9 @@ import { Card, CARD_RANK, SUIT_VALUE } from "./card.js";
 
 
 
-
 // Create 52 cards.
 // Add them to your deck. 
-// Where are they located? Have a shuffle method to rearrange them. Place shuffle method in the gaem. 
+// Where are they located? Have a shuffle method to rearrange them. Place shuffle method in the game. 
 
 // The deck contains the 52 objects. 
 
@@ -33,34 +32,18 @@ firstCard.addCard(simpleDeck); // This works.
 
 
 
-function createNewDeck(){
+function createNewDeck(){ // This should possible be added to the prototype chain as Deck.prototype.newDeck(x number of cards));
 
     const new_deck = new Deck();
 
-
-
-
     for (let i = 0; i < CARD_RANK.length; i++){
-
         for (let j = 0; j < SUIT_VALUE.length; j++){
-            let temp_card = new Card({value: SUIT_VALUE[i], suit: CARD_RANK[2]});
+            let temp_card = new Card({value: CARD_RANK[i], suit: SUIT_VALUE[j]});
                 temp_card.addCard(new_deck);
-
         }
-        
-
     };
     
-    //let temp_card = new Card({value: SUIT_VALUE[5], suit: CARD_RANK[2]}); //Updated pass in values to be an object.
-     //Increment the value
-    //temp_card.addCard(new_deck);
-            
-            //new_deck.current_cards.push(temp_card); // This should be a method attached to the Deck prototype chain.
-
-
-
-
-return new_deck.how_many_cards_in_deck;
+return new_deck;
 }
 
 
