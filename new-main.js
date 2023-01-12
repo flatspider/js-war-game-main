@@ -15,7 +15,12 @@ console.log("hello TIME");
 console.log(cardDeck.firstCard);
 console.log(cardDeck.secondCard);
 console.log(cardDeck.simpleDeck.current_cards);
-console.log(cardDeck.createNewDeck());
+let printDeck = cardDeck.createNewDeck();
+let printDeck1 = cardDeck.createNewDeck();
+console.log(printDeck.current_cards);
+//setTimeout(printDeck.shuffle(), 5000); // Calling this function scrambles the deck being printed. This is a strange order of operations.
+//console.log(printDeck);
+
 
 
 
