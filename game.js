@@ -1,110 +1,136 @@
 import * as gamers from "./player.js";
-import * as cardDeck from  "./deck.js";
-
-
-/*
-import {drawCard, shuffle} from "./deck.js";
-import * as cardT from "./card.js";
-import { addCard } from "./card.js";
-*/
-
-import { Card, CARD_RANK, SUIT_VALUE } from "./card.js";
-
+import {Deck} from  "./deck.js";
+import { Card } from "./card.js";
 
 //Manually create and play a game. 
 
+// When I try and modify a players deck, the whole program stops working. 
+// Calling .drawCard or .splice on a players deck breaks the [0] reference point. It causes it to become undefined. 
 
 // Two players created with initial names and assigned locations. 
 // Each player has a name, number of cards, array of cards, and location on the screen.
 let playerOne = new gamers.Player({name:'conor', location: 'left'});
 let playerTwo = new gamers.Player({name: 'sammy', location: 'right'});
 
-// Now create a new card deck.
-
-
-// Now we need to add cards to the players hands.
-
-// The 26 needs to be a constant variable that is half the size of the initial card count.
-
-
-// Now create the structure of the game. Currently feeding in the pre-built players.
-// Features a brand new central deck. The game status will be turned false when a player has zero cards.
-// Maybe this.winner is set to the name of the winning player.
-function Game({playersArr = [playerOne,playerTwo], deck = new cardDeck.createNewDeck()} = {}){
-    this.deck = deck;
-    this.gameStatus = true; // Should the game keep going?
-    this.winner = ""; // Name of player who reaches zero first;
-    this.players = playersArr;
+function Game({playersArr = [playerOne , playerTwo], gdeck = new Deck()} = {}){
+    this.gdeck = gdeck; //This is an empty deck.
+    this.players = playersArr; // Access individual players by this.players[0]
+    //this.gameStatus = true; // Should the game keep going?
+    //this.winner = ""; // Name of player who reaches zero first;
 }
 
 // A new game is created. This will be activated via the click button on the home screen.
 let theFinalModule = new Game();
 
-/*
-theFinalModule.deck.drawCard().addCard(theFinalModule.players[0].playerHand);
-theFinalModule.deck.drawCard();
-theFinalModule.deck.drawCard();
-*/
 
+Game.prototype.acquireInitialGameDeck = function() {
+    this.gdeck = this.gdeck.getNewFullDeck(); // Does this return a deck or cards?
+}
 
+//theFinalModule.deck.createNewDeck(); // Need to rework this.
 
-
-
+theFinalModule.acquireInitialGameDeck();
 
 
 Game.prototype.dealCentralDeck = function(){
     // Use the add card function to add cards to each players deck. 
     for (let i = 0; i < 26; i++){
-        // Draw a card from the Game.deck. Add that card to the this.player[0].playerHand.
+        
+        let temp_card1 = this.gdeck.drawCard(); // This is drawing the card. 
+        temp_card1.addCard(this.players[0].playerHand); // This adds that card to the first players hand.
+        
+        let temp_card2 = this.gdeck.drawCard(); // This is drawing the card. 
+        temp_card2.addCard(this.players[1].playerHand); // This adds that card to the first players hand.
 
-        this.deck.drawCard().addCard(this.players[0].playerHand);
-        this.deck.drawCard().addCard(this.players[1].playerHand);
-
-
-
-        //this.players[0].playerHand.drawCard().addCard(t.playerHand);
-        //this.players[1].drawCard().addCard(player2.playerHand);
     }
 
 }
 
+theFinalModule.dealCentralDeck();
 
-
-theFinalModule.dealCentralDeck(); // Should probably just pass this in as a this.players reference [0] and this.players[1].
-// Each player now has 26 cards in their hands.
-
-// Lets compare their first two cards.
-
-// Below plays a single hand. Only player ONE can win.
+// Show me the two cards to be compared. 
 
 
 
-Game.prototype.playGameOneStep = function(){
-    // Use the add card function to add cards to each players deck. 
-    
-        // Draw a card from the Game.deck. Add that card to the this.player[0].playerHand.
 
-        let card1 = this.players[0].playerHand.drawCard().value;
-        let card2 = this.players[1].playerHand.drawCard().value;
+Game.prototype.comparePlayerCards = function() {
 
-        //theFinalModule.players[0].playerHand.drawCard().value;
+    let p1card = this.players[0].playerHand.current_cards[10]['cardValue']; // This statement is reading a card from the players hand.
 
-        // theFinalModule.players[0].playerHand.current_cards[0].value
-        
+    let p2card = this.players[1].playerHand.current_cards[0]['cardValue'];
 
+    if (p1card > p2card){
+        return 0//this.players[0]; // So if this function returns a single value, it works?
+    } else{
+        return 1//this.player[1];
+    }
 
-
-        //this.players[0].playerHand.drawCard().addCard(t.playerHand);
-        //this.players[1].drawCard().addCard(player2.playerHand);
-    
 
 }
 
 
+//theFinalModule.comparePlayerCards(); // This returns a player!
+
+// Take that player, and add the bottom card from player2s deck to the player 1 deck.
+
+// This means the function sees it has a player. Now look for the other player. If I have 0, look for 1. If I have 1, look for 0. 
+// Draw from the opposite player. 
+
+Game.prototype.allocateCardsToWinner = function(winplayer){ 
+    
+    // Take the player.
+    // Look at the players deck. 
+    // Does the Game know where this player is? 
+
+    // windplayer will be a one or a zero.
 
 
 
+    if (winplayer === 0){
 
+
+        this.players[0].playerHand = this.players[1].playerHand
+        
+        ;
+
+
+    } else {
+        return "ahaha";
+    }
+ 
+    
+    //winplayer.playerHand.current_cards; //This reaches into the players Deck.
+
+    // Draw a card from the loser. 
+
+}
+
+theFinalModule.allocateCardsToWinner(theFinalModule.comparePlayerCards());
+
+
+Game.prototype.playGameOneStep = function(){ 
+    
+        // Draw a card from the playerHand. Add that card to the this.player[0].playerHand.
+
+        //let test_variable = theFinalModule.players[0].playerHand.current_cards[0].value;
+
+       
+
+        //let card1value = this.players[0].playerHand.drawCard().value;
+        //let card2value = this.players[1].playerHand.drawCard().value;
+
+}
+
+
+//theFinalModule.dealCentralDeck(); 
+
+let test_variable = theFinalModule.players;
+
+
+// Should probably just pass this in as a this.players reference [0] and this.players[1].
+// Each player now has 26 cards in their hands.
+// Lets compare their first two cards.
+// Below plays a single hand. Only player ONE can win.
 
 
 
@@ -145,16 +171,11 @@ if(theFinalModule.players[0].playerHand.drawCard().value >= theFinalModule.playe
 
 */
 
-export {playerOne, playerTwo, theFinalModule, Game};
-
-
-
+export {playerOne, playerTwo, theFinalModule, Game, test_variable };
 
 
 
 /*
-
-
 
 
 function Game({playerCount = 2} = {}){

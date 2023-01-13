@@ -5,13 +5,13 @@ const SUIT_VALUE = ['clubs', 'diamonds', 'hearts', 'spades'];
 
 // Card constructor with Card.value and Card.suit.
 function Card({value = 'joker', suit = 'joker'} = {}){
-    this.value = value; // Number or symbol. compareCards calls on the present value
+    this.cardValue = value; // Number or symbol. compareCards calls on the present value
     this.suit = suit;   // Suits
 };
 
 // Allows the Card.addCard(deck) function to add a Card object to a deck object.
 Card.prototype.addCard = function(deck) {
-    deck.how_many_cards_in_deck = deck.how_many_cards_in_deck + 1;
+    deck.cardCountofDeck = deck.cardCountofDeck + 1;
     deck.current_cards.push(this); // It is pushing the default card. Not the correct card. 
 }
 

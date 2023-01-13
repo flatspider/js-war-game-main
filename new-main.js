@@ -1,30 +1,79 @@
+import { Game, playerOne, playerTwo, theFinalModule } from "./game.js";
+
+
 // import everything into this file?
 
 //import * as cardDeck from  "./deck.js";
 
-import * as gm from "./game.js";
+//import * as gm from "./game.js";
 //import Game from "./game.js";
-
 
 
 console.log("hello TIME");
 
-console.log(gm.playerOne);
-console.log(gm.playerTwo);
+console.log(playerOne);
+console.log(playerTwo);
 
-console.log(gm.theFinalModule);
 
-console.log(gm.theFinalModule.deck);
-console.log(gm.theFinalModule.players[0].playerHand);
-console.log(gm.theFinalModule.players[0].playerHand.drawCard().value);
+console.log(playerTwo.revealDeck());
+
+console.log(theFinalModule); // This is printing the game. 
+
+console.log(theFinalModule.gdeck.current_cards);
+
+console.log(theFinalModule.players[0].playerHand); // This adds 52 cards to the players. 
+
+console.log(theFinalModule.players[0].playerHand.current_cards[0]['cardValue']); // This reveals a value.
+
+console.log(theFinalModule.allocateCardsToWinner(theFinalModule.comparePlayerCards()));
+
+
+
+
+/*
+console.log(theFinalModule.deck);
+
+console.log(theFinalModule.players);
+
+console.log(theFinalModule.players[0]);
+
+console.log(theFinalModule.players[1].revealDeck().current_cards);
+
+console.log(theFinalModule);
+
+*/
+
+
+/*
+
 
 
 const $drawButton = document.querySelector(".draw");
 
 // When the button is clicked, draw a card from each game instance.
-$drawButton.addEventListener('click', gm.playGameOneStep);
+$drawButton.addEventListener('click', callback);
 
-console.log(gm.theFinalModule.players[0].playerHand);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//console.log(gm.theFinalModule.players[0].playerHand);
 
 // Printing the central deck.
 //console.log(gm.centralDeck);
@@ -32,11 +81,6 @@ console.log(gm.theFinalModule.players[0].playerHand);
 //console.log(gm.playerOne.playerHand);
 //console.log(gm.playerTwo.playerHand);
 //console.log(gm.playerTwo.playerHand.current_cards[0].value);
-
-
-
-
-
 
 
 
@@ -63,17 +107,6 @@ $drawButton.addEventListener('click', gameDrawPlayers);
 // Calls the compare cards function. 
 // The player that wins the comparison recieves the two cards.
 // Now ready to be clicked again!
-
-
-
-
-
-
-
-
-
-
-
 
 
 
