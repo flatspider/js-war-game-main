@@ -17,7 +17,6 @@ let simplePlayerTwo = [];
 
 function simpleDrawDeck(){ // Add randomization.
     const total_cards = simpleCardDeck.length;
-
     for (i = 0; i < total_cards; i++){
         if(i % 2 === 0){
             //add a card to playerOnes array
