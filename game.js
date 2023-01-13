@@ -1,6 +1,14 @@
 import * as gamers from "./player.js";
 import * as cardDeck from  "./deck.js";
-//import * as cardT from "./card.js";
+
+
+/*
+import {drawCard, shuffle} from "./deck.js";
+import * as cardT from "./card.js";
+import { addCard } from "./card.js";
+*/
+
+import { Card, CARD_RANK, SUIT_VALUE } from "./card.js";
 
 
 //Manually create and play a game. 
@@ -32,7 +40,13 @@ function Game({playersArr = [playerOne,playerTwo], deck = new cardDeck.createNew
 // A new game is created. This will be activated via the click button on the home screen.
 let theFinalModule = new Game();
 
+/*
+theFinalModule.deck.drawCard().addCard(theFinalModule.players[0].playerHand);
 theFinalModule.deck.drawCard();
+theFinalModule.deck.drawCard();
+*/
+
+
 
 
 
@@ -43,7 +57,8 @@ Game.prototype.dealCentralDeck = function(){
     for (let i = 0; i < 26; i++){
         // Draw a card from the Game.deck. Add that card to the this.player[0].playerHand.
 
-        
+        this.deck.drawCard().addCard(this.players[0].playerHand);
+        this.deck.drawCard().addCard(this.players[1].playerHand);
 
 
 
@@ -53,12 +68,48 @@ Game.prototype.dealCentralDeck = function(){
 
 }
 
+
+
 theFinalModule.dealCentralDeck(); // Should probably just pass this in as a this.players reference [0] and this.players[1].
 // Each player now has 26 cards in their hands.
 
 // Lets compare their first two cards.
 
 // Below plays a single hand. Only player ONE can win.
+
+
+
+Game.prototype.playGameOneStep = function(){
+    // Use the add card function to add cards to each players deck. 
+    
+        // Draw a card from the Game.deck. Add that card to the this.player[0].playerHand.
+
+        let card1 = this.players[0].playerHand.drawCard().value;
+        let card2 = this.players[1].playerHand.drawCard().value;
+
+        //theFinalModule.players[0].playerHand.drawCard().value;
+
+        // theFinalModule.players[0].playerHand.current_cards[0].value
+        
+
+
+
+        //this.players[0].playerHand.drawCard().addCard(t.playerHand);
+        //this.players[1].drawCard().addCard(player2.playerHand);
+    
+
+}
+
+
+
+
+
+
+
+
+
+
+
 
 /*
 if(theFinalModule.players[0].playerHand.drawCard().value >= theFinalModule.players[1].playerHand.drawCard().value){

@@ -1,3 +1,4 @@
+import { Card, CARD_RANK, SUIT_VALUE } from "./card.js";
 import * as cardDeck from  "./deck.js";
 
 // The player will need access to the deck.
@@ -19,17 +20,7 @@ function Player({name = '??', numberCards = 0, playerHand = new cardDeck.Deck(),
 };
 
 
-
-
-// The player needs an empty deck. 
-
-// How do I access the players deck?
-
-// Should the player create a new deck?
-
-// Then, have the player add a card to their personal deck. 
-
-// I do not know how to generate a unique name for the player decks. May need to hard code it in the game? 
+ 
 
 export {Player};
 

@@ -14,6 +14,18 @@ console.log(gm.playerTwo);
 
 console.log(gm.theFinalModule);
 
+console.log(gm.theFinalModule.deck);
+console.log(gm.theFinalModule.players[0].playerHand);
+console.log(gm.theFinalModule.players[0].playerHand.drawCard().value);
+
+
+const $drawButton = document.querySelector(".draw");
+
+// When the button is clicked, draw a card from each game instance.
+$drawButton.addEventListener('click', gm.playGameOneStep);
+
+console.log(gm.theFinalModule.players[0].playerHand);
+
 // Printing the central deck.
 //console.log(gm.centralDeck);
 
