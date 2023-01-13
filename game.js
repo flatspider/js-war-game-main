@@ -1,55 +1,81 @@
 import * as gamers from "./player.js";
 import * as cardDeck from  "./deck.js";
-import * as cardT from "./card.js";
+//import * as cardT from "./card.js";
 
 
 //Manually create and play a game. 
 
 
 // Two players created with initial names and assigned locations. 
+// Each player has a name, number of cards, array of cards, and location on the screen.
 let playerOne = new gamers.Player({name:'conor', location: 'left'});
 let playerTwo = new gamers.Player({name: 'sammy', location: 'right'});
 
 // Now create a new card deck.
-let centralDeck = cardDeck.createNewDeck();
-centralDeck.shuffle();
+
 
 // Now we need to add cards to the players hands.
 
 // The 26 needs to be a constant variable that is half the size of the initial card count.
 
-for (let i = 0; i < 26; i++){
-    centralDeck.drawCard().addCard(playerOne.playerHand);
-    centralDeck.drawCard().addCard(playerTwo.playerHand);
+
+// Now create the structure of the game. Currently feeding in the pre-built players.
+// Features a brand new central deck. The game status will be turned false when a player has zero cards.
+// Maybe this.winner is set to the name of the winning player.
+function Game({playersArr = [playerOne,playerTwo], deck = new cardDeck.createNewDeck()} = {}){
+    this.deck = deck;
+    this.gameStatus = true; // Should the game keep going?
+    this.winner = ""; // Name of player who reaches zero first;
+    this.players = playersArr;
 }
 
+// A new game is created. This will be activated via the click button on the home screen.
+let theFinalModule = new Game();
+
+theFinalModule.deck.drawCard();
+
+
+
+
+
+Game.prototype.dealCentralDeck = function(){
+    // Use the add card function to add cards to each players deck. 
+    for (let i = 0; i < 26; i++){
+        // Draw a card from the Game.deck. Add that card to the this.player[0].playerHand.
+
+        
+
+
+
+        //this.players[0].playerHand.drawCard().addCard(t.playerHand);
+        //this.players[1].drawCard().addCard(player2.playerHand);
+    }
+
+}
+
+theFinalModule.dealCentralDeck(); // Should probably just pass this in as a this.players reference [0] and this.players[1].
 // Each player now has 26 cards in their hands.
 
 // Lets compare their first two cards.
 
 // Below plays a single hand. Only player ONE can win.
-if(playerOne.playerHand.drawCard().value >= playerTwo.playerHand.drawCard().value){
+
+/*
+if(theFinalModule.players[0].playerHand.drawCard().value >= theFinalModule.players[1].playerHand.drawCard().value){
     //Add two cards to playerOnes deck.
     playerTwo.playerHand.drawCard().addCard(playerOne.playerHand);
     playerTwo.playerHand.drawCard().addCard(playerOne.playerHand);
+} else {
+    playerOne.playerHand.drawCard().addCard(playerTwo.playerHand);
+    playerOne.playerHand.drawCard().addCard(playerTwo.playerHand);
 }
+
+// Refreshing the page just recreates the first round. How do I maintain persistence? 
+
+
 
 // This is now adding cards correctly and subtracting them from the central deck.
 
-/*
-centralDeck.drawCard().addCard(playerOne.playerHand);
-centralDeck.drawCard().addCard(playerOne.playerHand);
-centralDeck.drawCard().addCard(playerTwo.playerHand);
-*/
-
-// Now playerOne has two cards. PlayerTwo has one card. Lets compare their cards.
-
-//playerOne.playerHand.drawCard();
-//playerTwo.playerHand.drawCard();
-
-// so lets .drawCard from playerOne. That returns his first card object. As an array? 
-// It is an object. So I need to read the value off of the object being returned. 
-// What do I do with that? 
 
 
 
@@ -66,9 +92,9 @@ centralDeck.drawCard().addCard(playerTwo.playerHand);
 // So within the game.js:
 // BigDeck.drawCard().addCard(playerOne.playerHand);
 
+*/
 
-
-export {playerOne, playerTwo, centralDeck};
+export {playerOne, playerTwo, theFinalModule, Game};
 
 
 
@@ -87,10 +113,7 @@ function Game({playerCount = 2} = {}){
 
 }
 
-Game.prototype.dealCentralDeck = function(){
-    // Use the add card function to add cards to each players deck. 
 
-}
 
 Game.prototype.compareCards = function(player1, player2){
 

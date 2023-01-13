@@ -1,20 +1,25 @@
 // import everything into this file?
 
-import * as cardDeck from  "./deck.js";
+//import * as cardDeck from  "./deck.js";
 
-import * as pl from "./game.js";
+import * as gm from "./game.js";
+//import Game from "./game.js";
+
+
 
 console.log("hello TIME");
 
-console.log(pl.playerOne);
-console.log(pl.playerTwo);
+console.log(gm.playerOne);
+console.log(gm.playerTwo);
+
+console.log(gm.theFinalModule);
 
 // Printing the central deck.
-console.log(pl.centralDeck);
+//console.log(gm.centralDeck);
 
-console.log(pl.playerOne.playerHand);
-console.log(pl.playerTwo.playerHand);
-console.log(pl.playerTwo.playerHand.current_cards[0].value);
+//console.log(gm.playerOne.playerHand);
+//console.log(gm.playerTwo.playerHand);
+//console.log(gm.playerTwo.playerHand.current_cards[0].value);
 
 
 
