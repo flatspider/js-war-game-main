@@ -1,70 +1,54 @@
-import { Game, playerOne, playerTwo, theFinalModule } from "./game.js";
+import { Game, theFinalModule, testModule} from "./game.js";
+import { Player } from "./player.js";
+import { Deck } from "./deck.js";
 
 
-// import everything into this file?
+// Two players created with initial names and assigned locations. 
+// The names for these can be established with a pop up.
+let playerOne = new Player({name:'conor', location: 'left'});
+let playerTwo = new Player({name: 'sammy', location: 'right'});
 
-//import * as cardDeck from  "./deck.js";
+// Listen for a click on the new game button.
+const $newGameButton = document.querySelector(".restart-game");
 
-//import * as gm from "./game.js";
-//import Game from "./game.js";
+$newGameButton.addEventListener('click', establishNewGame);
+
+
+let currentlyOccurringGame = new Game({playersArr: [playerOne,playerTwo]}); // This creates a new game instance with no deck and two players.
+
+
+function establishNewGame(){
+
+    console.log("NEW GAME");
+    //currentlyOccurringGame.gdeck.getNewFullDeck(); // This is not quite doing what I expected. 
+    currentlyOccurringGame.acquireInitialGameDeck();
+    console.log(currentlyOccurringGame);
+
+}
 
 
 console.log("hello TIME");
 
-console.log(playerOne);
-console.log(playerTwo);
+console.log(currentlyOccurringGame);
 
-
-console.log(playerTwo.revealDeck());
-
-console.log(theFinalModule); // This is printing the game. 
-
-console.log(theFinalModule.gdeck.current_cards);
-
-console.log(theFinalModule.players[0].playerHand); // This adds 52 cards to the players. 
-
-console.log(theFinalModule.players[0].playerHand.current_cards[0]['cardValue']); // This reveals a value.
-
-console.log(theFinalModule.allocateCardsToWinner(theFinalModule.comparePlayerCards()));
-
-
-
-
-/*
-console.log(theFinalModule.deck);
-
-console.log(theFinalModule.players);
-
-console.log(theFinalModule.players[0]);
-
-console.log(theFinalModule.players[1].revealDeck().current_cards);
-
-console.log(theFinalModule);
-
-*/
-
-
-/*
 
 
 
 const $drawButton = document.querySelector(".draw");
-
-// When the button is clicked, draw a card from each game instance.
-$drawButton.addEventListener('click', callback);
+$drawButton.addEventListener('click', playOneStep); // This is calling the function, but the method call is being hidden. 
 
 
+// The function is being called over here. 
 
 
+//console.log(theFinalModule.allocateCardsToWinner(theFinalModule.comparePlayerCards()));
+
+function playOneStep() {
+
+    currentlyOccurringGame.comparePlayerCards();
 
 
-
-
-
-
-
-
-
+}
 
 
 
@@ -73,14 +57,10 @@ $drawButton.addEventListener('click', callback);
 
 
 
-//console.log(gm.theFinalModule.players[0].playerHand);
 
-// Printing the central deck.
-//console.log(gm.centralDeck);
 
-//console.log(gm.playerOne.playerHand);
-//console.log(gm.playerTwo.playerHand);
-//console.log(gm.playerTwo.playerHand.current_cards[0].value);
+
+/*
 
 
 
@@ -115,13 +95,6 @@ $drawButton.addEventListener('click', gameDrawPlayers);
 // This works!
 // Not sure if everything should be imported into this new-main file, or if I can reach back.
 
-//cardDeck.newDeck.value = 3; //This updates the value of the card.
-//console.log(cardDeck.createNewDeck()); // No parenthesis. Have to put parenthesis to call the function. 
-console.log(cardDeck.firstCard);
-console.log(cardDeck.secondCard);
-console.log(cardDeck.simpleDeck.current_cards);
-let printDeck = cardDeck.createNewDeck();
-let printDeck1 = cardDeck.createNewDeck();
 console.log(printDeck.current_cards);
 //setTimeout(printDeck.shuffle(), 5000); // Calling this function scrambles the deck being printed. This is a strange order of operations.
 //console.log(printDeck);

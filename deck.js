@@ -2,13 +2,18 @@ import { Card, CARD_RANK, SUIT_VALUE } from "./card.js";
 
 // The deck contains the 52 card objects. 
 
+Deck.prototype.addCard = function(card_object) {
+    this.cardCountofDeck = this.cardCountofDeck + 1;
+    this.current_cards.push(card_object); // This should take the card object...and push it to the array [current cards] on the deck object. 
+}
+
 Deck.prototype.getNewFullDeck = function (){
-    const new_deck = new Deck();
+    const new_deck = new Deck(); // This is not what needs to happen. But I think it is fine.
 
     for (let i = 0; i < CARD_RANK.length; i++){
         for (let j = 0; j < SUIT_VALUE.length; j++){
             let temp_card = new Card({value: CARD_RANK[i], suit: SUIT_VALUE[j]});
-                temp_card.addCard(new_deck);
+                this.addCard(temp_card);
         }
     };
     
@@ -22,7 +27,7 @@ function Deck({num = 0, cards = []} = {}) {
 }
 
 Deck.prototype.shuffle = function(){
-    this.current_cards = fisher_yates(this.current_cards); // Sets the array of card objects to a random order.
+    this.current_cards = fisher_yates(this.current_cards); // Sets the array of card objects to a random order. Does not screw up the array status.
 }
 
 // Implementing the Fisher Yates shuffle from: https://www.tutorialspoint.com/what-is-fisher-yates-shuffle-in-javascript
@@ -40,11 +45,23 @@ Deck.prototype.drawCard = function(){
     
     // This will return the card at the bottom of the deck. But actually delete it, because you are sending it to a player hand.  
 
+    /*
+
+    const cardToRemove = 0;
+
+    const filteredCards = this.current_cards.filter((item) => item.cardValue !== cardToRemove);
+
+    */
+
+
     this.cardCountofDeck = this.cardCountofDeck - 1;
-    return this.current_cards.splice(0,1)[0]; // I am 99% sure this is returning a card object. How do I check?
+    return this.current_cards.splice(0,1)[0]; 
+    // I am 99% sure this is returning a card object. How do I check?
     // This will return the first card element in the deck. .splice(0,1) returns an array of 1.
     // Am I creating an array of arrays...?
 
 }
+
+
 
 export {Deck}; // Allows the createNewDeck function to be called in other js files.
