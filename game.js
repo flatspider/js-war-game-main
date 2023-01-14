@@ -2,9 +2,9 @@ import {Player} from "./player.js";
 import {Deck} from  "./deck.js";
 import { Card } from "./card.js";
 
+
+
 //Manually create and play a game. 
-
-
 function Game({playersArr, gdeck = new Deck()} = {}){
     this.gdeck = gdeck; //This is an empty deck.
     this.players = playersArr; // Access individual players by this.players[0]
@@ -12,15 +12,11 @@ function Game({playersArr, gdeck = new Deck()} = {}){
     //this.winner = ""; // Name of player who reaches zero first;
 }
 
-// A new game is created. This will be activated via the click button on the home screen.
-let theFinalModule = new Game();
-let testModule = new Game();
+
 
 Game.prototype.acquireInitialGameDeck = function() {
     this.gdeck.getNewFullDeck(); // Does this return a deck or cards? It returns a deck object. 
 }
-
-theFinalModule.acquireInitialGameDeck(); // No problems.
 
 
 Game.prototype.dealCentralDeck = function(){
@@ -43,15 +39,33 @@ Game.prototype.dealCentralDeck = function(){
 
 Game.prototype.comparePlayerCards = function() {
 
+
+
+    // Ensure that the players have cards.
+
+    if (this.players[0].playerHand.current_cards.length === 0 || this.players[1].playerHand.current_cards.length === 0) {
+
+        return ("DEAL CARDS");
+
+    }
+
     let p1card = this.players[0].playerHand.current_cards[0]['cardValue']; // This statement is reading a card from the players hand.
 
     let p2card = this.players[1].playerHand.current_cards[0]['cardValue']; // Reads the value from player 2. 
 
+    // This works! return p1card + p2card;
+
 
     if (p1card > p2card){
+        // Player Ones card is larger than Player Two's card.
+        // Add the two cards to the end of player Ones deck.
         this.players[0].playerHand.current_cards.push(this.players[0].playerHand.current_cards.splice(0,1)[0]);
         this.players[0].playerHand.current_cards.push(this.players[1].playerHand.current_cards.splice(0,1)[0]);
-    } else{
+    } else {
+
+        // Player Twos card is larger than Player Ones card. 
+        // Add the two cards to Player Two card. 
+
         this.players[1].playerHand.current_cards.push(this.players[0].playerHand.current_cards.splice(0,1)[0]);
         this.players[1].playerHand.current_cards.push(this.players[1].playerHand.current_cards.splice(0,1)[0]);
 
@@ -60,14 +74,6 @@ Game.prototype.comparePlayerCards = function() {
     // War!
     // If the values are equal, then check the length of the current cards available. 
     // Then skip 3 cards and call compare on the fourth index. If a tie again, check that length is available, then skip 3 , etc...
-
-}
-
-
-function moveGameForward() {
-
-    theFinalModule.comparePlayerCards(); // Could be a scope issue. 
-    console.log("3");
 
 }
 
@@ -83,8 +89,6 @@ function moveGameForward() {
 // We need to modify that Deck() object's this.current_cards
 
 
-let test_variable = theFinalModule.players;
-
 
 
 //playerOne.playerHand.addCard(); // the addCard() function adds the CARD.addCard(TO NEW DECK)
@@ -94,4 +98,4 @@ let test_variable = theFinalModule.players;
 // BigDeck.drawCard().addCard(playerOne.playerHand);
 
 
-export { theFinalModule, Game, testModule};
+export { Game };
