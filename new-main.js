@@ -3,6 +3,7 @@ import { Player } from "./player.js";
 //import { Deck } from "./deck.js";
 
 
+
 // Two players created with initial names and assigned locations. 
 // The names for these can be established with a pop up.
 let playerOne = new Player({name:'conor', location: 'left'});
@@ -21,11 +22,11 @@ $newGameButton.addEventListener('click', establishNewGame);
 let currentlyOccurringGame = new Game({playersArr: [playerOne,playerTwo]}); // This creates a new game instance with no deck and two players.
 
 
-
 function establishNewGame(){
 
     console.log("NEW GAME");
     currentlyOccurringGame.acquireInitialGameDeck();
+    //currentlyOccurringGame.gdeck.shuffle();
     console.log(currentlyOccurringGame);
     currentlyOccurringGame.dealCentralDeck(); 
     //Successfully dealing deck to each player. Each playerHand is a Deck object.
@@ -61,6 +62,9 @@ function playOneStep() {
     // This should probably be checked in the compare cards call. Determine - will someone win the game after this draw.
 
     // Show the two cards being compared.
+
+    // Possibly just obscure the royals here. If value = 11, set to 'J'.
+    // That will reduce any impact on the logic.
 
     $leftCard.innerHTML = currentlyOccurringGame.players[0].playerHand.current_cards[0]['cardValue'] + " " + currentlyOccurringGame.players[0].playerHand.current_cards[0]['suit'];
     $rightCard.innerHTML = currentlyOccurringGame.players[1].playerHand.current_cards[0]['cardValue'] + " " + currentlyOccurringGame.players[1].playerHand.current_cards[0]['suit'];
