@@ -2,6 +2,7 @@ import { Deck } from  "./deck.js";
 import { Card } from "./card.js";
 import { Player } from "./player.js";
 
+let turnInformation = ["Test turnInformation"]; // Fill this array with info. player1.name has won ...this.pot.
 
 //Manually create and play a game. 
 function Game({gdeck = new Deck()} = {}){
@@ -27,6 +28,7 @@ Game.prototype.dealCentralDeck = function(){
         this.player1.playerHand.push(this.gdeck.current_cards.splice(0,1)[0]); //This is a card in the deck at the game.
         this.player2.playerHand.push(this.gdeck.current_cards.splice(0,1)[0]);
     }
+    turnInformation = "Deck has been dealt to both players.";
 }
 
 Game.prototype.drawCard = function() {
@@ -55,11 +57,8 @@ Game.prototype.comparePlayerCards = function() {
     let p1card = this.pot[0]['cardValue'];
     let p2card = this.pot[1]['cardValue'];
 
-
     let player1cardcount = this.player1.playerHand.length;
     let player2cardcount = this.player2.playerHand.length;
-
-    let war_cycle = 1;
 
     // Can I run this recursively? Or as a loop? Come back to the start
 
@@ -68,14 +67,14 @@ Game.prototype.comparePlayerCards = function() {
             // Add the two current cards to the end of player Ones deck.
             this.player1.playerHand = [...this.player1.playerHand,...this.pot];
             this.pot = [];
-            return "Player One has won the hand";
+            turnInformation = this.player1.name + " has won the turn.";
         } else if (p2card > p1card) {
 
             // Player Twos card is larger than Player Ones card. 
             // Add the two cards to Player Two card. 
             this.player2.playerHand = [...this.player2.playerHand,...this.pot];
             this.pot = [];
-            return "Player Two has won the hand";
+            turnInformation = this.player2.name + " has won the turn.";
         } else {
             
             // Adds three cards from each players hand to the pot. 
@@ -84,15 +83,9 @@ Game.prototype.comparePlayerCards = function() {
                         ...this.pot];
 
             this.comparePlayerCards(); // Recursively call the function to compare the card values.
-            // Why can I look at the pot? I've added cards into it, but it adds them three at a time. 
 
         }
 
-
-
-        // War!
-        // If the values are equal, then check the length of the current cards available.
-        // Lets go step by step.
 
        
 
@@ -103,4 +96,4 @@ Game.prototype.comparePlayerCards = function() {
 
 
 
-export { Game };
+export { Game, turnInformation };

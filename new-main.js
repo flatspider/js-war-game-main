@@ -1,17 +1,26 @@
-import { Game } from "./game.js";
+import { Game, turnInformation } from "./game.js";
 import { Player } from "./player.js";
 
 let scoreLeft = document.querySelector(".player-one");
 let scoreRight = document.querySelector(".player-two");
+
+const $leftCard = document.querySelector(".card1");
+const $rightCard = document.querySelector(".card2");
+
+
+const $messageBox = document.querySelector(".message");
+
+// Button activates a play step.
+const $drawButton = document.querySelector(".draw");
+$drawButton.addEventListener('click', playOneStep);
 
 scoreLeft.innerHTML = 0;
 scoreRight.innerHTML = 0;
 
 // Two players created with initial names and assigned locations. 
 // The names for these can be established with a pop up.
-let playerOne = new Player({name:'conor', location: 'left'});
-let playerTwo = new Player({name: 'sammy', location: 'right'});
-
+let playerOne = new Player({name:'Conor', location: 'left'});
+let playerTwo = new Player({name: 'Brendan', location: 'right'});
 
 
 let clickStop = false;
@@ -43,23 +52,26 @@ function establishNewGame(){
     scoreLeft.innerHTML = currentlyOccurringGame.player1.playerHand.length;
     scoreRight.innerHTML = currentlyOccurringGame.player2.playerHand.length;
 
+    $messageBox.innerHTML = turnInformation;
+
+    $newGameButton.classList.remove("restart-game");
+    $drawButton.classList.add("restart-game");
+
+    $leftCard.innerHTML = currentlyOccurringGame.player1.name;
+    $rightCard.innerHTML = currentlyOccurringGame.player2.name;
+
 }
 
 console.log("hello TIME");
 console.log(currentlyOccurringGame);
 
-// Button activates a play step.
-const $drawButton = document.querySelector(".draw");
-$drawButton.addEventListener('click', playOneStep);
+
 
 //console.log(theFinalModule.allocateCardsToWinner(theFinalModule.comparePlayerCards()));
 let numberofDraws = 0;
 
 // Need to query selector the two playing cards.
-const $leftCard = document.querySelector(".card1");
-const $rightCard = document.querySelector(".card2");
 
-const $messageBox = document.querySelector(".message");
 
 
 function playOneStep() {
@@ -67,8 +79,16 @@ function playOneStep() {
     console.log(numberofDraws);
 
     // Calls the card value and the suit.
-    $leftCard.innerHTML = currentlyOccurringGame.player1.playerHand[0]['cardValue'] + " " + currentlyOccurringGame.player1.playerHand[0]['suit'];
-    $rightCard.innerHTML = currentlyOccurringGame.player2.playerHand[0]['cardValue'] + " " + currentlyOccurringGame.player2.playerHand[0]['suit'];
+
+    let p1card = currentlyOccurringGame.player1.playerHand[0]['cardValue'];
+    let p1suit = currentlyOccurringGame.player1.playerHand[0]['suit'];
+
+    let p2card = currentlyOccurringGame.player2.playerHand[0]['cardValue'];
+    let p2suit = currentlyOccurringGame.player2.playerHand[0]['suit'];
+
+
+    $leftCard.innerHTML = convertCard(p1card) + " " + convertSuit(p1suit);
+    $rightCard.innerHTML = convertCard(p2card) + " " + convertSuit(p2suit);
 
     currentlyOccurringGame.drawCard();
     console.log(currentlyOccurringGame);
@@ -80,9 +100,34 @@ function playOneStep() {
 
     // Set message box. 
 
-    $messageBox.innerHTML = "Player ONe has won the hand, gaining the 2 of clubs and etc..."
+    $messageBox.innerHTML = turnInformation;
 
 }
 
 
+function convertCard(value) {
 
+    if (value < 11){
+        return value;
+    } else if (value === 11){
+        return 'J';
+    } else if (value === 12){
+        return 'Q';
+    } else if (value === 13){
+        return 'K';
+    } else if (value === 14){
+        return 'A';
+    }
+}
+
+function convertSuit(value){
+    if (value === 0){
+        return '♣';
+    } else if (value === 1) {
+        return '♦';
+    } else if (value === 2) {
+        return '♥';
+    } else if (value === 3) {
+        return '♠';
+    }
+}
