@@ -1,8 +1,5 @@
 import { Game } from "./game.js";
 import { Player } from "./player.js";
-//import { Deck } from "./deck.js";
-
-
 
 // Two players created with initial names and assigned locations. 
 // The names for these can be established with a pop up.
@@ -15,36 +12,44 @@ let scoreRight = document.querySelector(".player-two");
 scoreLeft.innerHTML = 0;
 scoreRight.innerHTML = 0;
 
+let clickStop = false;
+
 // Listen for a click on the new game button.
 const $newGameButton = document.querySelector(".restart-game");
 
 $newGameButton.addEventListener('click', establishNewGame);
 
-let currentlyOccurringGame = new Game({playersArr: [playerOne , playerTwo]}); // This creates a new game instance with no deck and two players.
+let currentlyOccurringGame = new Game();
+currentlyOccurringGame.player1 = playerOne;
+currentlyOccurringGame.player2 = playerTwo;
 
 
 function establishNewGame(){
 
     console.log("NEW GAME");
-    currentlyOccurringGame.acquireInitialGameDeck();
-    //currentlyOccurringGame.gdeck.shuffle();
-    console.log(currentlyOccurringGame);
-    currentlyOccurringGame.dealCentralDeck(); 
-    //Successfully dealing deck to each player. Each playerHand is a Deck object.
-    // Clicking this button more than once just keeps creating a new deck of cards and dealing them to the players.
-    // Must have a button to deal a card to the players?
 
-    scoreLeft.innerHTML = currentlyOccurringGame.players[0].playerHand.current_cards.length;
-    scoreRight.innerHTML = currentlyOccurringGame.players[1].playerHand.current_cards.length;
+    if (clickStop === false){
 
+        currentlyOccurringGame.acquireInitialGameDeck();
+        currentlyOccurringGame.gdeck.shuffle();
+        console.log(currentlyOccurringGame);
+        currentlyOccurringGame.dealCentralDeck(); 
+
+        clickStop = true;
+
+    }
     
+    scoreLeft.innerHTML = currentlyOccurringGame.player1.playerHand.length;
+    scoreRight.innerHTML = currentlyOccurringGame.player2.playerHand.length;
+
 }
 
 console.log("hello TIME");
 console.log(currentlyOccurringGame);
 
+// Button activates a play step.
 const $drawButton = document.querySelector(".draw");
-$drawButton.addEventListener('click', playOneStep); // This is calling the function, but the method call is being hidden. 
+$drawButton.addEventListener('click', playOneStep);
 
 //console.log(theFinalModule.allocateCardsToWinner(theFinalModule.comparePlayerCards()));
 let numberofDraws = 0;
@@ -61,33 +66,23 @@ function playOneStep() {
     numberofDraws = numberofDraws + 1;
     console.log(numberofDraws);
 
-    // Check for the length of the players decks. Do they have cards? 
-    // This should probably be checked in the compare cards call. Determine - will someone win the game after this draw.
-    // Show the two cards being compared.
-    // Possibly just obscure the royals here. If value = 11, set to 'J'.
-    // That will reduce any impact on the logic.
-    // Maybe set the value of the royals after.
-
-
     // Calls the card value and the suit.
-    $leftCard.innerHTML = currentlyOccurringGame.players[0].playerHand.current_cards[0]['cardValue'] + " " + currentlyOccurringGame.players[0].playerHand.current_cards[0]['suit'];
-    $rightCard.innerHTML = currentlyOccurringGame.players[1].playerHand.current_cards[0]['cardValue'] + " " + currentlyOccurringGame.players[1].playerHand.current_cards[0]['suit'];
+    $leftCard.innerHTML = currentlyOccurringGame.player1.playerHand[0]['cardValue'] + " " + currentlyOccurringGame.player1.playerHand[0]['suit'];
+    $rightCard.innerHTML = currentlyOccurringGame.player2.playerHand[0]['cardValue'] + " " + currentlyOccurringGame.player2.playerHand[0]['suit'];
 
-    currentlyOccurringGame.comparePlayerCards();
-
-    // Cannot print an undefined.
+    currentlyOccurringGame.drawCard();
 
     console.log(currentlyOccurringGame);
 
-    scoreLeft.innerHTML = currentlyOccurringGame.players[0].playerHand.current_cards.length;
-    scoreRight.innerHTML = currentlyOccurringGame.players[1].playerHand.current_cards.length;
+    scoreLeft.innerHTML = currentlyOccurringGame.player1.playerHand.length;
+    scoreRight.innerHTML = currentlyOccurringGame.player2.playerHand.length;
+
 
     // How do you know who wins the hand? I can create a return text in the .comparePlayerCards();
 
     // Set message box. 
 
     $messageBox.innerHTML = "Player ONe has won the hand, gaining the 2 of clubs and etc..."
-
 
 }
 
