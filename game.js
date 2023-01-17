@@ -69,7 +69,7 @@ Game.prototype.comparePlayerCards = function() {
             this.player1.playerHand = [...this.player1.playerHand,...this.pot];
             this.pot = [];
             return "Player One has won the hand";
-        } else if (p2card >= p1card) {
+        } else if (p2card > p1card) {
 
             // Player Twos card is larger than Player Ones card. 
             // Add the two cards to Player Two card. 
@@ -77,55 +77,26 @@ Game.prototype.comparePlayerCards = function() {
             this.pot = [];
             return "Player Two has won the hand";
         } else {
+            
+            // Adds three cards from each players hand to the pot. 
+            this.pot = [...this.player1.playerHand.splice(0,3),
+                        ...this.player2.playerHand.splice(0,3),
+                        ...this.pot];
+
+            this.comparePlayerCards(); // Recursively call the function to compare the card values.
+            // Why can I look at the pot? I've added cards into it, but it adds them three at a time. 
+
+        }
+
+
 
         // War!
         // If the values are equal, then check the length of the current cards available.
         // Lets go step by step.
 
-        /*
-        if (player1cardcount < (war_cycle * 4) + 1){
-            return "Player 1 Loses"
-        } else if (player2cardcount < (war_cycle * 4) + 1) {
-            return "Player 2 Loses"
-        } else {
-
-
-            war_array1.push(this.players[0].playerHand.current_cards.splice(0,1)[0]);
-
-            // Build the arrays with four cards in them. 
-
-            // Then compare the zero index.
-
-            console.log("WARRRRR");
-            return 5;
-
-
-        }
-
-            */
-        // If one player fails this test, the other player wins automatically. 
-
-        // Draw three cards from each player. 
-
-        // Push each card to the war_array.
-
-        // Cannot call the compare cards function because it does not return true or false. 
-
-        // The winner with the higher card needs to recieve all 10 cards. 
-
-        // Two arrays are full of 3 cards each. Still need to capture the initial card. Where is that stored? Still at index zero. 
-
-        // Splice 0 to 3 and add to array. 
-
-        // Then determine a winner and add both arrays to the winner current_cards. 
-
-        // Additionally, splice the zero index of both players and .push() to winners hand
-
-        // NO TIES allowed. However, in case of war tie, start comparing the zero indexes of the war arrays. 
+       
 
     
-
-    }
 
 }
 

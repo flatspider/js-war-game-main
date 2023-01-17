@@ -1,16 +1,18 @@
 import { Game } from "./game.js";
 import { Player } from "./player.js";
 
-// Two players created with initial names and assigned locations. 
-// The names for these can be established with a pop up.
-let playerOne = new Player({name:'conor', location: 'left'});
-let playerTwo = new Player({name: 'sammy', location: 'right'});
-
 let scoreLeft = document.querySelector(".player-one");
 let scoreRight = document.querySelector(".player-two");
 
 scoreLeft.innerHTML = 0;
 scoreRight.innerHTML = 0;
+
+// Two players created with initial names and assigned locations. 
+// The names for these can be established with a pop up.
+let playerOne = new Player({name:'conor', location: 'left'});
+let playerTwo = new Player({name: 'sammy', location: 'right'});
+
+
 
 let clickStop = false;
 
@@ -22,7 +24,6 @@ $newGameButton.addEventListener('click', establishNewGame);
 let currentlyOccurringGame = new Game();
 currentlyOccurringGame.player1 = playerOne;
 currentlyOccurringGame.player2 = playerTwo;
-
 
 function establishNewGame(){
 
@@ -62,7 +63,6 @@ const $messageBox = document.querySelector(".message");
 
 
 function playOneStep() {
-
     numberofDraws = numberofDraws + 1;
     console.log(numberofDraws);
 
@@ -71,12 +71,10 @@ function playOneStep() {
     $rightCard.innerHTML = currentlyOccurringGame.player2.playerHand[0]['cardValue'] + " " + currentlyOccurringGame.player2.playerHand[0]['suit'];
 
     currentlyOccurringGame.drawCard();
-
     console.log(currentlyOccurringGame);
 
     scoreLeft.innerHTML = currentlyOccurringGame.player1.playerHand.length;
     scoreRight.innerHTML = currentlyOccurringGame.player2.playerHand.length;
-
 
     // How do you know who wins the hand? I can create a return text in the .comparePlayerCards();
 
