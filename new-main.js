@@ -35,6 +35,8 @@ function establishNewGame(){
 
     scoreLeft.innerHTML = currentlyOccurringGame.players[0].playerHand.current_cards.length;
     scoreRight.innerHTML = currentlyOccurringGame.players[1].playerHand.current_cards.length;
+
+    
 }
 
 console.log("hello TIME");
@@ -50,22 +52,23 @@ let numberofDraws = 0;
 const $leftCard = document.querySelector(".card1");
 const $rightCard = document.querySelector(".card2");
 
+const $messageBox = document.querySelector(".message");
+
 
 function playOneStep() {
 
     numberofDraws = numberofDraws + 1;
-
     console.log(numberofDraws);
 
-    // Check for the lenght of the players decks. Do they have cards? 
-
+    // Check for the length of the players decks. Do they have cards? 
     // This should probably be checked in the compare cards call. Determine - will someone win the game after this draw.
-
     // Show the two cards being compared.
-
     // Possibly just obscure the royals here. If value = 11, set to 'J'.
     // That will reduce any impact on the logic.
+    // Maybe set the value of the royals after.
 
+
+    // Calls the card value and the suit.
     $leftCard.innerHTML = currentlyOccurringGame.players[0].playerHand.current_cards[0]['cardValue'] + " " + currentlyOccurringGame.players[0].playerHand.current_cards[0]['suit'];
     $rightCard.innerHTML = currentlyOccurringGame.players[1].playerHand.current_cards[0]['cardValue'] + " " + currentlyOccurringGame.players[1].playerHand.current_cards[0]['suit'];
 
@@ -78,6 +81,12 @@ function playOneStep() {
 
     scoreLeft.innerHTML = currentlyOccurringGame.players[0].playerHand.current_cards.length;
     scoreRight.innerHTML = currentlyOccurringGame.players[1].playerHand.current_cards.length;
+
+    // How do you know who wins the hand? I can create a return text in the .comparePlayerCards();
+
+    // Set message box. 
+
+    $messageBox.innerHTML = "Player ONe has won the hand, gaining the 2 of clubs and etc..."
 
 
 
