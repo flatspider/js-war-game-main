@@ -60,6 +60,9 @@ Deck.prototype.drawCard = function(){
     // This will return the first card element in the deck. .splice(0,1) returns an array of 1.
     // Am I creating an array of arrays...?
 
+
+    
+
 }
 
 

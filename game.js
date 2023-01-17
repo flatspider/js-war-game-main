@@ -12,18 +12,24 @@ function Game({playersArr, gdeck = new Deck()} = {}){
 }
 
 Game.prototype.acquireInitialGameDeck = function() {
-    this.gdeck.getNewFullDeck(); // Does this return a deck or cards? It returns a deck object. 
+    // Cycle through and add cards to the deck array. 
+    
+    for (let i = 2; i < 15; i++){
+        for (let j = 0; j < 4; j++){
+            let temp_card = new Card({value: i, suit: j});
+                this.gdeck.current_cards.push(temp_card);
+        }
+    };
+
 }
 
 Game.prototype.dealCentralDeck = function(){
     // Use the add card function to add cards to each players deck. 
     for (let i = 0; i < 26; i++){
-
         // Below line properly pushes a copy of the card and keeps the deck intact. 
         // Below line slices a card item from the game deck and pushes it to the game.players[].playerHand.current_cards value.
         this.players[0].playerHand.current_cards.push(this.gdeck.current_cards.splice(0,1)[0]); //This is a card in the deck at the game.
         this.players[1].playerHand.current_cards.push(this.gdeck.current_cards.splice(0,1)[0]);
-
         // There are 52 cards that need to be distributed.
     }
 }
@@ -75,7 +81,19 @@ Game.prototype.comparePlayerCards = function() {
             return "Player 2 Loses"
         } else {
 
+
+
+
+
+
+
+
+
             war_array1.push(this.players[0].playerHand.current_cards.splice(0,1)[0]);
+
+            // Build the arrays with four cards in them. 
+
+            // Then compare the zero index.
 
             console.log("WARRRRR");
             return 5;
