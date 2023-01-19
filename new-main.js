@@ -13,6 +13,7 @@ const $messageBox = document.querySelector(".message");
 const $drawButton = document.querySelector(".draw");
 $drawButton.addEventListener("click", playOneStep);
 
+//Initializes point values to 0.
 scoreLeft.innerHTML = 0;
 scoreRight.innerHTML = 0;
 
@@ -56,9 +57,6 @@ function establishNewGame() {
   $rightCard.innerHTML = currentlyOccurringGame.player2.name;
 }
 
-console.log("hello TIME");
-console.log(currentlyOccurringGame);
-
 //console.log(theFinalModule.allocateCardsToWinner(theFinalModule.comparePlayerCards()));
 let numberofDraws = 0;
 
@@ -66,7 +64,7 @@ let numberofDraws = 0;
 
 function playOneStep() {
   numberofDraws = numberofDraws + 1;
-  console.log(numberofDraws);
+  //console.log(numberofDraws);
 
   // Calls the card value and the suit.
 
@@ -80,16 +78,38 @@ function playOneStep() {
   $rightCard.innerHTML = convertCard(p2card) + " " + convertSuit(p2suit);
 
   currentlyOccurringGame.drawCard();
-  console.log(currentlyOccurringGame);
+  //console.log(currentlyOccurringGame);
 
   scoreLeft.innerHTML = currentlyOccurringGame.player1.playerHand.length;
   scoreRight.innerHTML = currentlyOccurringGame.player2.playerHand.length;
 
-  // How do you know who wins the hand? I can create a return text in the .comparePlayerCards();
-
   // Set message box.
 
   $messageBox.innerHTML = turnInformation;
+
+  // How do I read which card is winning? I can see the p2card value.
+  // This animation functions as long as the winners alternate.
+
+  console.log($leftCard.classList);
+  console.log($rightCard.classList);
+
+  if (p1card > p2card) {
+    $leftCard.classList.add("riseCard");
+  } else if (p2card > p1card) {
+    $rightCard.classList.add("riseCard");
+  } else {
+    $leftCard.classList.add("riseCard");
+    $rightCard.classList.add("riseCard");
+  }
+
+  const myTimeout = setTimeout(clearCardClass, 1100);
+
+  // It is executing this immediately, before the animation can take place.
+}
+
+function clearCardClass() {
+  $leftCard.classList.remove("riseCard");
+  $rightCard.classList.remove("riseCard");
 }
 
 function convertCard(value) {

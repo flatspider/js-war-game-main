@@ -41,13 +41,18 @@ body {
 
 .card {
   position: relative;
-  width: 5em;
-  height: 7em;
+  width: 10em;
+  height: 14em;
   background-color: #ffffff;
   box-shadow: 0 0.0625em 0.125em rgba(0, 0, 0, 0.15);
   border-radius: 0.25em;
   margin: 20px;
-  margin-bottom: 100px;
+  margin-bottom: 50px;
+}
+
+.riseCard {
+  animation: riseUp 1100ms;
+  animation-timing-function: linear;
 }
 
 .button {
@@ -58,3 +63,22 @@ body {
   font: bold;
   margin-bottom: 25px;
 }
+
+/* Outline of animation graphics:
+
+Compare the cards. The greater card should raise up and come back down organically. */
+
+@keyframes riseUp {
+  0% {
+    transform: translateY(-5%);
+  }
+  50% {
+    transform: translateY(-12%);
+  }
+}
+
+/* TODO:
+
+If the cards are in the War comparison (same value) rotate both cards 15 degrees and crash the corners. 
+
+*/

@@ -4,6 +4,8 @@ import { Player } from "./player.js";
 
 let turnInformation = [""]; // Fill this array with info. player1.name has won ...this.pot.
 
+let warNote = false;
+
 //Manually create and play a game.
 function Game({ gdeck = new Deck() } = {}) {
   this.gdeck = gdeck; //This is an empty deck.
@@ -63,14 +65,36 @@ Game.prototype.comparePlayerCards = function () {
     // Player Ones card is larger than Player Two's card.
     // Add the two current cards to the end of player Ones deck.
     this.player1.playerHand = [...this.player1.playerHand, ...this.pot];
+
+    if (warNote === true) {
+      turnInformation =
+        this.player1.name +
+        " has won the War turn, earning " +
+        this.pot.length +
+        " cards.";
+      warNote = false;
+    } else {
+      turnInformation = this.player1.name + " has won the turn.";
+    }
+
     this.pot = [];
-    turnInformation = this.player1.name + " has won the turn.";
   } else if (p2card > p1card) {
     // Player Twos card is larger than Player Ones card.
     // Add the two cards to Player Two card.
     this.player2.playerHand = [...this.player2.playerHand, ...this.pot];
+
+    if (warNote === true) {
+      turnInformation =
+        this.player2.name +
+        " has won the War turn, earning " +
+        this.pot.length +
+        " cards.";
+      warNote = false;
+    } else {
+      turnInformation = this.player2.name + " has won the turn.";
+    }
+
     this.pot = [];
-    turnInformation = this.player2.name + " has won the turn.";
   } else {
     // Adds three cards from each players hand to the pot.
     this.pot = [
@@ -78,7 +102,7 @@ Game.prototype.comparePlayerCards = function () {
       ...this.player2.playerHand.splice(0, 3),
       ...this.pot,
     ];
-
+    warNote = true;
     this.comparePlayerCards(); // Recursively call the function to compare the card values.
   }
 };
