@@ -1,16 +1,37 @@
+/* {
+  border: solid black 3px;
+}*/
+
 @import url(https://fonts.googleapis.com/css?family=Lora:400,700);
 
 .container {
   display: flex;
   width: 100%;
-  height: 70%;
+  height: 100%;
   justify-content: center;
   position: relative;
+}
+
+.containerB {
+  height: 5em;
+  width: 100%;
+  display: inline-block;
+  /* border: solid yellow 2px; */
+  text-align: center;
 }
 
 .buffer {
   position: relative;
   height: 50px;
+}
+
+.containerB > button {
+  position: relative;
+  height: 100%;
+  width: 10em;
+
+  border-radius: 0.85em;
+  margin: 5px;
 }
 
 /* Creates the glowing button animation */
@@ -45,18 +66,15 @@ body {
   height: 14em;
   background-color: #ffffff;
   box-shadow: 0 0.0625em 0.125em rgba(0, 0, 0, 0.15);
-  border-radius: 0.25em;
+  border-radius: 0.85em;
   margin: 20px;
   margin-bottom: 50px;
+  font-size: 2rem;
 }
 
 .riseCard {
   animation: riseUp 1100ms;
   animation-timing-function: linear;
-}
-
-.button {
-  height: 100px;
 }
 
 .message {
