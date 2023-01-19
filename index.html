@@ -1,101 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>War!</title>
-
-    <style>
-       
-       .container {
-        display: flex;
-        width: 100%;
-        height: 70%;
-        justify-content: center;
-        position: relative;
-       }
-
-       .buffer {
-        position: relative;
-        height: 50px;
-       }
-
-       @keyframes glowing {
-        0% {
-            background-color: #2ba805;
-            box-shadow: 0 0 3px #2ba805;
-            }
-        50% {
-         background-color: #49e819;
-            box-shadow: 0 0 10px #49e819;
-        }
-        100% {
-            background-color: #2ba805;
-            box-shadow: 0 0 3px #2ba805;
-        }
-    }
-
-        .restart-game {
-        animation: glowing 1300ms infinite;
-      }
-
-        body {
-            background-color: #eee;
-            font-family: sans-serif;
-        }
-
-        .card {
-        position: relative;
-        width: 5em;
-        height: 7em;
-        background-color: #ffffff;
-        box-shadow: 0 0.0625em 0.125em rgba(0, 0, 0, 0.15);
-        border-radius: 0.25em;
-        margin: 20px;
-        margin-bottom: 100px;
-        }
-
-
-        .button {
-            height: 100px;
-        }
-
-        .message{
-            font: bold;
-            margin-bottom: 25px;
-        }
-           
-    </style>
-
-</head>
-<body>
+    <link href="styles.css" rel="stylesheet" />
+  </head>
+  <body>
     <div class="container">
-    <p>WAR! The Card Game</p>
-    </div>
-    
-    <div class="container">
-        <h1 class="player-one score">0</h1>
-        <h1 class="hyphen score">-</h1>
-        <h1 class="player-two score">0</h1>
-        <div class="buffer"></div>
+      <p>WAR! The Card Game</p>
     </div>
 
     <div class="container">
-        <div class="buffer"></div>
-        <div class="card card1">Start a game!</div>
-        <div class="card card2">Start a game!</div>
+      <h1 class="player-one score">0</h1>
+      <h1 class="hyphen score">-</h1>
+      <h1 class="player-two score">0</h1>
+      <div class="buffer"></div>
     </div>
 
     <div class="container">
-    <div class="message container"></div>
+      <div class="buffer"></div>
+      <div class="card card1">Start a game!</div>
+      <div class="card card2">Start a game!</div>
     </div>
-    
+
     <div class="container">
-        <button type="button" class="draw">Draw A Card</button>
-        <button type="button" class="restart-game">Start Game!</button>
+      <div class="message container"></div>
     </div>
-   
+
+    <div class="container">
+      <button type="button" class="draw">Draw A Card</button>
+      <button type="button" class="restart-game">Start Game!</button>
+    </div>
+
     <script src="new-main.js" type="module"></script>
-</body>
+  </body>
 </html>
