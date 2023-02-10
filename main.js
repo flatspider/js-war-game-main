@@ -19,8 +19,6 @@ $drawButton.addEventListener("click", playOneStep);
 
 // Two players created with initial names and assigned locations.
 // The names for these can be established with a pop up.
-let playerOne = new Player({ name: "Conor" });
-let playerTwo = new Player({ name: "Brendan" });
 
 let clickStop = false;
 
@@ -30,14 +28,11 @@ const $newGameButton = document.querySelector(".restart-game");
 $newGameButton.addEventListener("click", establishNewGame);
 
 let currentlyOccurringGame = new Game();
-currentlyOccurringGame.player1 = playerOne;
-currentlyOccurringGame.player2 = playerTwo;
 
 function establishNewGame() {
   console.log("NEW GAME");
 
   if (clickStop === false) {
-    currentlyOccurringGame.acquireInitialGameDeck();
     currentlyOccurringGame.deck.shuffle();
     console.log(currentlyOccurringGame);
     currentlyOccurringGame.dealCentralDeck();

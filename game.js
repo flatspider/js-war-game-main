@@ -6,24 +6,12 @@ let turnInformation = [""]; // Fill this array with info. player1.name has won .
 
 let warNote = false;
 
-//Manually create and play a game.
-function Game({ deck = new Deck() } = {}) {
-  this.deck = deck; //This is an empty deck.
+function Game({} = {}) {
+  this.deck = new Deck(); //This is an empty deck.
   this.player1 = new Player({ name: "Conor" }); // Access individual players by this.player1
   this.player2 = new Player({ name: "Brendan" });
   this.pot = []; // This will hold cards that will be distributed to each player
 }
-
-// Call this within the deck prototype chain.
-Game.prototype.acquireInitialGameDeck = function () {
-  // Cycle through and add cards to the deck array.
-  for (let i = 2; i < 15; i++) {
-    for (let j = 0; j < 4; j++) {
-      let temp_card = new Card({ value: i, suit: j });
-      this.deck.current_cards.push(temp_card); // Pushes the card objects into the current cards array
-    }
-  }
-};
 
 Game.prototype.dealCentralDeck = function () {
   // Use the add card function to add cards to each players deck.
