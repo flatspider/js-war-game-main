@@ -1,5 +1,4 @@
 import { Game, turnInformation } from "./game.js";
-import { Player } from "./player.js";
 
 // Access scores
 let scoreLeft = document.querySelector(".player-one");
@@ -30,11 +29,8 @@ $newGameButton.addEventListener("click", establishNewGame);
 let currentlyOccurringGame = new Game();
 
 function establishNewGame() {
-  console.log("NEW GAME");
-
   if (clickStop === false) {
     currentlyOccurringGame.deck.shuffle();
-    console.log(currentlyOccurringGame);
     currentlyOccurringGame.dealCentralDeck();
 
     clickStop = true;
@@ -84,9 +80,6 @@ function playOneStep() {
 
   // How do I read which card is winning? I can see the p2card value.
   // This animation functions as long as the winners alternate.
-
-  console.log($leftCard.classList);
-  console.log($rightCard.classList);
 
   if (p1card > p2card) {
     $leftCard.classList.add("riseCard");

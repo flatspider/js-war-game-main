@@ -1,9 +1,9 @@
 import { Deck } from "./deck.js";
-import { Card } from "./card.js";
 import { Player } from "./player.js";
 
 let turnInformation = [""]; // Fill this array with info. player1.name has won ...this.pot.
 
+// Used to indicate what the war condition is
 let warNote = false;
 
 function Game({} = {}) {
@@ -44,9 +44,6 @@ Game.prototype.comparePlayerCards = function () {
 
   let p1card = this.pot[0]["cardValue"];
   let p2card = this.pot[1]["cardValue"];
-
-  let player1cardcount = this.player1.playerHand.length;
-  let player2cardcount = this.player2.playerHand.length;
 
   // Can I run this recursively? Or as a loop? Come back to the start
 

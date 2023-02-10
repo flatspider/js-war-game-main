@@ -1,5 +1,3 @@
-import { Deck } from "./deck.js";
-
 // This establishes a default player with name, numberCards, and playerHand deck.
 function Player({ name, numberCards = 0 } = {}) {
   this.name = name; // This is a string name
