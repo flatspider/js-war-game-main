@@ -1,8 +1,6 @@
 import { Deck } from "./deck.js";
 import { Player } from "./player.js";
 
-let turnInformation = [""]; // Fill this array with info. player1.name has won ...this.pot.
-
 // Used to indicate what the war condition is
 let warNote = false;
 
@@ -11,6 +9,7 @@ function Game({} = {}) {
   this.player1 = new Player({ name: "Conor" }); // Access individual players by this.player1
   this.player2 = new Player({ name: "Brendan" });
   this.pot = []; // This will hold cards that will be distributed to each player
+  this.turnInformation = [""];
 }
 
 Game.prototype.dealCentralDeck = function () {
@@ -19,7 +18,7 @@ Game.prototype.dealCentralDeck = function () {
     this.player1.playerHand.push(this.deck.current_cards.splice(0, 1)[0]); //This is a card in the deck at the game.
     this.player2.playerHand.push(this.deck.current_cards.splice(0, 1)[0]);
   }
-  turnInformation = "Deck has been dealt to both players.";
+  this.turnInformation = "Deck has been dealt to both players.";
 };
 
 Game.prototype.drawCard = function () {
@@ -40,8 +39,6 @@ Game.prototype.comparePlayerCards = function () {
   // Each time, read the players zero card and add the card to the pot.
   // After determining who wins, add the pot to their hand of cards.
 
-  console.log(this.pot);
-
   let p1card = this.pot[0]["cardValue"];
   let p2card = this.pot[1]["cardValue"];
 
@@ -53,14 +50,14 @@ Game.prototype.comparePlayerCards = function () {
     this.player1.playerHand = [...this.player1.playerHand, ...this.pot];
 
     if (warNote === true) {
-      turnInformation =
+      this.turnInformation =
         this.player1.name +
         " has won the War turn, earning " +
         this.pot.length +
         " cards.";
       warNote = false;
     } else {
-      turnInformation = this.player1.name + " has won the turn.";
+      this.turnInformation = this.player1.name + " has won the turn.";
     }
 
     this.pot = [];
@@ -70,14 +67,14 @@ Game.prototype.comparePlayerCards = function () {
     this.player2.playerHand = [...this.player2.playerHand, ...this.pot];
 
     if (warNote === true) {
-      turnInformation =
+      this.turnInformation =
         this.player2.name +
         " has won the War turn, earning " +
         this.pot.length +
         " cards.";
       warNote = false;
     } else {
-      turnInformation = this.player2.name + " has won the turn.";
+      this.turnInformation = this.player2.name + " has won the turn.";
     }
 
     this.pot = [];
@@ -93,4 +90,4 @@ Game.prototype.comparePlayerCards = function () {
   }
 };
 
-export { Game, turnInformation };
+export { Game };

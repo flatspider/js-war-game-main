@@ -1,4 +1,4 @@
-import { Game, turnInformation } from "./game.js";
+import { Game } from "./game.js";
 
 // Access scores
 let scoreLeft = document.querySelector(".player-one");
@@ -39,7 +39,7 @@ function establishNewGame() {
   scoreLeft.innerHTML = currentlyOccurringGame.player1.playerHand.length;
   scoreRight.innerHTML = currentlyOccurringGame.player2.playerHand.length;
 
-  $messageBox.innerHTML = turnInformation;
+  $messageBox.innerHTML = currentlyOccurringGame.turnInformation;
 
   $newGameButton.classList.remove("restart-game");
   $drawButton.classList.add("restart-game");
@@ -76,7 +76,7 @@ function playOneStep() {
 
   // Set message box.
 
-  $messageBox.innerHTML = turnInformation;
+  $messageBox.innerHTML = currentlyOccurringGame.turnInformation;
 
   // How do I read which card is winning? I can see the p2card value.
   // This animation functions as long as the winners alternate.
