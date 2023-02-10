@@ -7,19 +7,20 @@ let turnInformation = [""]; // Fill this array with info. player1.name has won .
 let warNote = false;
 
 //Manually create and play a game.
-function Game({ gdeck = new Deck() } = {}) {
-  this.gdeck = gdeck; //This is an empty deck.
-  this.player1 = new Player(); // Access individual players by this.player1
-  this.player2 = new Player();
+function Game({ deck = new Deck() } = {}) {
+  this.deck = deck; //This is an empty deck.
+  this.player1 = new Player({ name: "Conor" }); // Access individual players by this.player1
+  this.player2 = new Player({ name: "Brendan" });
   this.pot = []; // This will hold cards that will be distributed to each player
 }
 
+// Call this within the deck prototype chain.
 Game.prototype.acquireInitialGameDeck = function () {
   // Cycle through and add cards to the deck array.
   for (let i = 2; i < 15; i++) {
     for (let j = 0; j < 4; j++) {
       let temp_card = new Card({ value: i, suit: j });
-      this.gdeck.current_cards.push(temp_card); // Pushes the card objects into the current cards array
+      this.deck.current_cards.push(temp_card); // Pushes the card objects into the current cards array
     }
   }
 };
@@ -27,8 +28,8 @@ Game.prototype.acquireInitialGameDeck = function () {
 Game.prototype.dealCentralDeck = function () {
   // Use the add card function to add cards to each players deck.
   for (let i = 0; i < 26; i++) {
-    this.player1.playerHand.push(this.gdeck.current_cards.splice(0, 1)[0]); //This is a card in the deck at the game.
-    this.player2.playerHand.push(this.gdeck.current_cards.splice(0, 1)[0]);
+    this.player1.playerHand.push(this.deck.current_cards.splice(0, 1)[0]); //This is a card in the deck at the game.
+    this.player2.playerHand.push(this.deck.current_cards.splice(0, 1)[0]);
   }
   turnInformation = "Deck has been dealt to both players.";
 };

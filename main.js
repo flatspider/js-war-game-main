@@ -1,228 +1,139 @@
+import { Game, turnInformation } from "./game.js";
+import { Player } from "./player.js";
 
-/* Establish what the cards can be made of.
-let suits = ["clubs","diamonds","hearts","spades"]
-let values = [2,3,4,5,6,7,8,9,10];
-let royalty = ["J","Q","K","A"];
-*/
+// Access scores
+let scoreLeft = document.querySelector(".player-one");
+let scoreRight = document.querySelector(".player-two");
+//Initializes point values to 0.
+scoreLeft.innerHTML = 0;
+scoreRight.innerHTML = 0;
+// Access playing cards
+const $leftCard = document.querySelector(".card1");
+const $rightCard = document.querySelector(".card2");
+// Access message box
+const $messageBox = document.querySelector(".message");
 
-// export {suits, values, royalty}
-
-//------------------------------------------------Simple War
-// Lets imagine a deck of 6 cards. 
-// They have the value of 1,2,3,4,5,6.
-let simpleCardDeck = [1,2,3,4,5,6];
-
-let simplePlayerOne = [];
-let simplePlayerTwo = [];
-
-function simpleDrawDeck(){ // Add randomization.
-    const total_cards = simpleCardDeck.length;
-    for (i = 0; i < total_cards; i++){
-        if(i % 2 === 0){
-            //add a card to playerOnes array
-            simplePlayerOne.push(simpleCardDeck[i]); //Instead of i, choose a random integer between 1 and 6 (index 0 and 5)
-        } else {
-            //add a card to playerTwos array
-            simplePlayerTwo.push(simpleCardDeck[i]);
-        }
-    }
-}
-
-simpleDrawDeck();
-
-console.log(`Player One has: ${simplePlayerOne}`);
-console.log(`Player Two has: ${simplePlayerTwo}`);
-
-function simplePlayATurn(){
-
-    // Take a card from player 1 deck. 
-    // Take a card from player 2 deck.
-
-    // If we always take the first one, take the [0] one. 
-    // Then we would read the cards value, but we don't have to for the simple version.
-
-    let test = compareCardValue(simplePlayerOne[0], simplePlayerTwo[0]);
-    
-    //Who wins? 
-
-    // Have to compare the cards. 
-    // Then take BOTH cards and add them to the winning players deck at the END of the array/object value.
-
-    if (test){
-        simplePlayerOne.unshift(simplePlayerOne.pop());
-        simplePlayerOne.push(simplePlayerTwo.splice(0,1));
-        
-    } else {
-        simplePlayerTwo.unshift(simplePlayerTwo.pop());
-        simplePlayerTwo.push(simplePlayerOne.splice(0,1));
-        
-    }
-
-
-
-}
-
-
-function compareCardValue(card1,card2){
-
-    if (card1 > card2){ // No ties allowed. 
-        return true;
-    } else {
-        return false;
-    }
-
-}
-
-simplePlayATurn();
-
-console.log(`Player One has: ${simplePlayerOne}`);
-console.log(`Player Two has: ${simplePlayerTwo}`);
-
-
-simplePlayATurn();
-
-console.log(`Player One has: ${simplePlayerOne}`);
-console.log(`Player Two has: ${simplePlayerTwo}`);
-
-
-
-
-
-
-
-//--------------------End of Simple War
-/*
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//-------------Advanced:
-// Identify the scores in the DOM
-const $playerOneScore = document.querySelector(".player-one");
-const $playerTwoScore = document.querySelector(".player-two");
-
-$playerOneScore.innerHTML = 3;
-$playerTwoScore.innerHTML = 8;
-// Format the scores to always show two numerals a la js-clock.
-
+// Button activates a play step.
 const $drawButton = document.querySelector(".draw");
+$drawButton.addEventListener("click", playOneStep);
 
-// Listen for a click on the draw button.
-$drawButton.addEventListener('click', drawCardBothPlayers);
+// Two players created with initial names and assigned locations.
+// The names for these can be established with a pop up.
+let playerOne = new Player({ name: "Conor" });
+let playerTwo = new Player({ name: "Brendan" });
 
-const universalCardDeck = [];
-const player1deck = [];
-const player2deck =[];
+let clickStop = false;
 
-function buildDeck(){
+// Listen for a click on the new game button.
+const $newGameButton = document.querySelector(".restart-game");
 
-    let totalCards = 56; // Do not need to call this out. Just actually pluck numbers from the deck array. Or deck constructor.
-    // Define that there are 52 combinations of card constructors. 
-    // They are not random, but have 13 of each suit. Each must satisfy the requirements.
-    // Four 2s, Four 3s, etc. make up a valid card deck. 
+$newGameButton.addEventListener("click", establishNewGame);
 
+let currentlyOccurringGame = new Game();
+currentlyOccurringGame.player1 = playerOne;
+currentlyOccurringGame.player2 = playerTwo;
 
+function establishNewGame() {
+  console.log("NEW GAME");
+
+  if (clickStop === false) {
+    currentlyOccurringGame.acquireInitialGameDeck();
+    currentlyOccurringGame.deck.shuffle();
+    console.log(currentlyOccurringGame);
+    currentlyOccurringGame.dealCentralDeck();
+
+    clickStop = true;
+  }
+
+  scoreLeft.innerHTML = currentlyOccurringGame.player1.playerHand.length;
+  scoreRight.innerHTML = currentlyOccurringGame.player2.playerHand.length;
+
+  $messageBox.innerHTML = turnInformation;
+
+  $newGameButton.classList.remove("restart-game");
+  $drawButton.classList.add("restart-game");
+
+  $leftCard.innerHTML = currentlyOccurringGame.player1.name;
+  $rightCard.innerHTML = currentlyOccurringGame.player2.name;
 }
 
-// When new game button CLICKED, call the new game function. 
+//console.log(theFinalModule.allocateCardsToWinner(theFinalModule.comparePlayerCards()));
+let numberofDraws = 0;
 
+// Need to query selector the two playing cards.
 
+function playOneStep() {
+  numberofDraws = numberofDraws + 1;
+  //console.log(numberofDraws);
 
-// New game function will look at a deck of cards.
+  // Calls the card value and the suit.
 
-// Shuffle the deck. 
+  let p1card = currentlyOccurringGame.player1.playerHand[0]["cardValue"];
+  let p1suit = currentlyOccurringGame.player1.playerHand[0]["suit"];
 
-// You must have a constructor for Game, Player, Deck, and Card.
-// You must attach methods to the prototype chain.
+  let p2card = currentlyOccurringGame.player2.playerHand[0]["cardValue"];
+  let p2suit = currentlyOccurringGame.player2.playerHand[0]["suit"];
 
-function Game({}){
-    this.winnerIs = Player.name; // Set to the player with the highest value. Create function?
-    this.onGoing = true; // Should the game keep playing? or does one player deck have zero cards?
-};
+  $leftCard.innerHTML = convertCard(p1card) + " " + convertSuit(p1suit);
+  $rightCard.innerHTML = convertCard(p2card) + " " + convertSuit(p2suit);
 
-function Player({}){
-    this.name = "sam"; // How is this player referred to? 
-    this.location = "left"; //Is the player on the left or the right of the screen?
-};
+  currentlyOccurringGame.drawCard();
+  //console.log(currentlyOccurringGame);
 
-function Deck({}){ // I believe this should be the universal deck? Containing 52 cards? 
-    this.count = 5;//Number or symbol
-    this.suit = 6;//Suits
-    this.playerOwner; // Which player owns this deck? 
-    this.cardCount; // How many cards are left in this deck? Increment up or down to account for the end of the draw compete cycle 
-};
+  scoreLeft.innerHTML = currentlyOccurringGame.player1.playerHand.length;
+  scoreRight.innerHTML = currentlyOccurringGame.player2.playerHand.length;
 
-function Card({}){
-    this.value = 5;// Number or symbol. compareCards calls on the present value
-    this.suit = 6;// Suits
-    this.location; // Where is this card located in the card deck? Is it at the top? Is it ready to be drawn? 
-};
+  // Set message box.
 
+  $messageBox.innerHTML = turnInformation;
 
-let playerONE = new Deck({
-    // Pull three cards from the universal deck. 
-    // Increase the count for the deck? 
-    this.count = 3; // = function (call the build deck?)
-}) 
+  // How do I read which card is winning? I can see the p2card value.
+  // This animation functions as long as the winners alternate.
 
+  console.log($leftCard.classList);
+  console.log($rightCard.classList);
 
+  if (p1card > p2card) {
+    $leftCard.classList.add("riseCard");
+  } else if (p2card > p1card) {
+    $rightCard.classList.add("riseCard");
+  } else {
+    $leftCard.classList.add("riseCard");
+    $rightCard.classList.add("riseCard");
+  }
 
+  const myTimeout = setTimeout(clearCardClass, 1100);
 
-// Randomly assign (or alternately) assign 26 cards. 
-
-// Player 1 will now have 26 cards in their personal deck. 
-
-// Player 2 will now have 26 cards in their personal deck. 
-
-// BEGIN GAME.
-
-// Click the DRAW button. 
-
-function drawCardBothPlayers(){
-
-    // Call the drawCard function for each player. 
-    // What are the players? Create a new player. 
-
-
+  // It is executing this immediately, before the animation can take place.
 }
 
-// Player 1 contributes the first card from their deck. 
+function clearCardClass() {
+  $leftCard.classList.remove("riseCard");
+  $rightCard.classList.remove("riseCard");
+}
 
-// Player 2 contributes the first card from their deck. 
+function convertCard(value) {
+  if (value < 11) {
+    return value;
+  } else if (value === 11) {
+    return "J";
+  } else if (value === 12) {
+    return "Q";
+  } else if (value === 13) {
+    return "K";
+  } else if (value === 14) {
+    return "A";
+  }
+}
 
-// The computer evaluates player1.deck.card.value to player2.deck.card.value. 
-
-// Look at the symbol. Determine what value each card has. 
-
-// Directly compare the values. The higher value card wins. Aces are the highest card. 
-
-// If player 1 wins, take the two cards currently displayed and place them into Player 1s deck. 
-
-// If player 2 has the higher evaluated card, take the two cards currently evaluated and place them into Player 2 deck. 
-
-// First iteration: If the values are the same, Player 1 wins. 
-
-// This means deck array + current card1 and current card2. 
-
-// The game now stands at Player1 Deck = 28 and Player 2 deck = 24. 
-
-// informs the game status after each draw (e.g. What cards were drawn? Which player won the hand? How many cards does each player have?)
-
-// Click the draw button and restart. 
-
-
-*/
+function convertSuit(value) {
+  if (value === 0) {
+    return "♣";
+  } else if (value === 1) {
+    return "♦";
+  } else if (value === 2) {
+    return "♥";
+  } else if (value === 3) {
+    return "♠";
+  }
+}
