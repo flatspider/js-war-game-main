@@ -32,7 +32,7 @@ function establishNewGame() {
   if (clickStop === false) {
     currentlyOccurringGame.deck.shuffle();
     currentlyOccurringGame.dealCentralDeck();
-
+    // Only allows for one click to occur.
     clickStop = true;
   }
 
@@ -48,17 +48,12 @@ function establishNewGame() {
   $rightCard.innerHTML = currentlyOccurringGame.player2.name;
 }
 
-//console.log(theFinalModule.allocateCardsToWinner(theFinalModule.comparePlayerCards()));
 let numberofDraws = 0;
-
-// Need to query selector the two playing cards.
 
 function playOneStep() {
   numberofDraws = numberofDraws + 1;
-  //console.log(numberofDraws);
 
-  // Calls the card value and the suit.
-
+  // Accesses the card value and the suit.
   let p1card = currentlyOccurringGame.player1.playerHand[0]["cardValue"];
   let p1suit = currentlyOccurringGame.player1.playerHand[0]["suit"];
 
@@ -69,18 +64,14 @@ function playOneStep() {
   $rightCard.innerHTML = convertCard(p2card) + " " + convertSuit(p2suit);
 
   currentlyOccurringGame.drawCard();
-  //console.log(currentlyOccurringGame);
 
   scoreLeft.innerHTML = currentlyOccurringGame.player1.playerHand.length;
   scoreRight.innerHTML = currentlyOccurringGame.player2.playerHand.length;
 
   // Set message box.
-
   $messageBox.innerHTML = currentlyOccurringGame.turnInformation;
 
-  // How do I read which card is winning? I can see the p2card value.
-  // This animation functions as long as the winners alternate.
-
+  // Determine which card wins.
   if (p1card > p2card) {
     $leftCard.classList.add("riseCard");
   } else if (p2card > p1card) {
@@ -90,7 +81,7 @@ function playOneStep() {
     $rightCard.classList.add("riseCard");
   }
 
-  const myTimeout = setTimeout(clearCardClass, 1100);
+  setTimeout(clearCardClass, 1100);
 
   // It is executing this immediately, before the animation can take place.
 }
