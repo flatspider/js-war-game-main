@@ -33,6 +33,7 @@ function establishNewGame() {
     // Only allows for one click to occur.
     currentlyOccurringGame.firstPlay = false;
   }
+
   scoreLeft.innerHTML = currentlyOccurringGame.player1.playerHand.length;
   scoreRight.innerHTML = currentlyOccurringGame.player2.playerHand.length;
 
@@ -45,11 +46,7 @@ function establishNewGame() {
   $rightCard.innerHTML = currentlyOccurringGame.player2.name;
 }
 
-let numberofDraws = 0;
-
 function playOneStep() {
-  numberofDraws = numberofDraws + 1;
-
   // Accesses the card value and the suit.
   let p1card = currentlyOccurringGame.player1.playerHand[0]["cardValue"];
   let p1suit = currentlyOccurringGame.player1.playerHand[0]["suit"];
