@@ -3,12 +3,15 @@ import { Game } from "./game.js";
 // Access scores
 let scoreLeft = document.querySelector(".player-one");
 let scoreRight = document.querySelector(".player-two");
+
 // Initializes point values to 0
 scoreLeft.innerHTML = 0;
 scoreRight.innerHTML = 0;
+
 // Access playing cards
 const $leftCard = document.querySelector(".card1");
 const $rightCard = document.querySelector(".card2");
+
 // Access message box
 const $messageBox = document.querySelector(".message");
 
@@ -16,54 +19,51 @@ const $messageBox = document.querySelector(".message");
 const $drawButton = document.querySelector(".draw");
 $drawButton.addEventListener("click", playOneStep);
 
-// Allows one click to take place
-
 // Establishes a new game
-let currentlyOccurringGame = new Game();
+const game = new Game();
 
 // Listen for a click on the new game button.
 const $newGameButton = document.querySelector(".restart-game");
-
 $newGameButton.addEventListener("click", establishNewGame);
 
 function establishNewGame() {
-  if (currentlyOccurringGame.firstPlay === true) {
-    currentlyOccurringGame.shuffle();
-    currentlyOccurringGame.dealCentralDeck();
+  if (game.firstPlay === true) {
+    game.shuffle();
+    game.dealCentralDeck();
     // Only allows for one click to occur.
-    currentlyOccurringGame.firstPlay = false;
+    game.firstPlay = false;
   }
 
-  scoreLeft.innerHTML = currentlyOccurringGame.player1.playerHand.length;
-  scoreRight.innerHTML = currentlyOccurringGame.player2.playerHand.length;
+  scoreLeft.innerHTML = game.player1.playerHand.length;
+  scoreRight.innerHTML = game.player2.playerHand.length;
 
-  $messageBox.innerHTML = currentlyOccurringGame.turnInformation;
+  $messageBox.innerHTML = game.turnInformation;
 
   $newGameButton.classList.remove("restart-game");
   $drawButton.classList.add("restart-game");
 
-  $leftCard.innerHTML = currentlyOccurringGame.player1.name;
-  $rightCard.innerHTML = currentlyOccurringGame.player2.name;
+  $leftCard.innerHTML = game.player1.name;
+  $rightCard.innerHTML = game.player2.name;
 }
 
 function playOneStep() {
   // Accesses the card value and the suit.
-  let p1card = currentlyOccurringGame.player1.playerHand[0]["cardValue"];
-  let p1suit = currentlyOccurringGame.player1.playerHand[0]["suit"];
+  let p1card = game.player1.playerHand[0]["cardValue"];
+  let p1suit = game.player1.playerHand[0]["suit"];
 
-  let p2card = currentlyOccurringGame.player2.playerHand[0]["cardValue"];
-  let p2suit = currentlyOccurringGame.player2.playerHand[0]["suit"];
+  let p2card = game.player2.playerHand[0]["cardValue"];
+  let p2suit = game.player2.playerHand[0]["suit"];
 
   $leftCard.innerHTML = convertCard(p1card) + " " + convertSuit(p1suit);
   $rightCard.innerHTML = convertCard(p2card) + " " + convertSuit(p2suit);
 
-  currentlyOccurringGame.drawCard();
+  game.drawCard();
 
-  scoreLeft.innerHTML = currentlyOccurringGame.player1.playerHand.length;
-  scoreRight.innerHTML = currentlyOccurringGame.player2.playerHand.length;
+  scoreLeft.innerHTML = game.player1.playerHand.length;
+  scoreRight.innerHTML = game.player2.playerHand.length;
 
   // Set message box.
-  $messageBox.innerHTML = currentlyOccurringGame.turnInformation;
+  $messageBox.innerHTML = game.turnInformation;
 
   // Determine which card wins.
   if (p1card > p2card) {

@@ -1,8 +1,8 @@
 import { Deck } from "./deck.js";
 import { Player } from "./player.js";
 
-// Used to indicate what the war condition is
-let warNote = false;
+// DOM references can be called here.
+// Call updateDOM method to set point values.
 
 function Game() {
   this.deck = new Deck(); //This is an empty deck.
@@ -11,6 +11,7 @@ function Game() {
   this.pot = []; // This will hold cards that will be distributed to each player
   this.turnInformation = [""];
   this.firstPlay = true;
+  this.war = false;
 }
 
 Game.prototype.shuffle = function () {
@@ -52,13 +53,13 @@ Game.prototype.comparePlayerCards = function () {
     // Add the two current cards to the end of player Ones deck.
     this.player1.playerHand = [...this.player1.playerHand, ...this.pot];
 
-    if (warNote === true) {
+    if (this.war === true) {
       this.turnInformation =
         this.player1.name +
         " has won the War turn, earning " +
         this.pot.length +
         " cards.";
-      warNote = false;
+      this.war = false;
     } else {
       this.turnInformation = this.player1.name + " has won the turn.";
     }
@@ -69,13 +70,13 @@ Game.prototype.comparePlayerCards = function () {
     // Add the two cards to Player Two card.
     this.player2.playerHand = [...this.player2.playerHand, ...this.pot];
 
-    if (warNote === true) {
+    if (this.war === true) {
       this.turnInformation =
         this.player2.name +
         " has won the War turn, earning " +
         this.pot.length +
         " cards.";
-      warNote = false;
+      this.war = false;
     } else {
       this.turnInformation = this.player2.name + " has won the turn.";
     }
@@ -87,7 +88,7 @@ Game.prototype.comparePlayerCards = function () {
       ...this.player2.playerHand.splice(0, 3),
       ...this.pot,
     ];
-    warNote = true;
+    this.war = true;
     this.comparePlayerCards(); // Recursively call the function to compare the card values.
   }
 };
