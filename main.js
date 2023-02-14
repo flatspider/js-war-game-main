@@ -17,7 +17,6 @@ const $drawButton = document.querySelector(".draw");
 $drawButton.addEventListener("click", playOneStep);
 
 // Allows one click to take place
-let clickStop = false;
 
 // Establishes a new game
 let currentlyOccurringGame = new Game();
@@ -28,11 +27,11 @@ const $newGameButton = document.querySelector(".restart-game");
 $newGameButton.addEventListener("click", establishNewGame);
 
 function establishNewGame() {
-  if (clickStop === false) {
+  if (currentlyOccurringGame.firstPlay === true) {
     currentlyOccurringGame.shuffle();
     currentlyOccurringGame.dealCentralDeck();
     // Only allows for one click to occur.
-    clickStop = true;
+    currentlyOccurringGame.firstPlay = false;
   }
   scoreLeft.innerHTML = currentlyOccurringGame.player1.playerHand.length;
   scoreRight.innerHTML = currentlyOccurringGame.player2.playerHand.length;

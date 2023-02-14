@@ -10,6 +10,7 @@ function Game() {
   this.player2 = new Player({ name: "Brendan" });
   this.pot = []; // This will hold cards that will be distributed to each player
   this.turnInformation = [""];
+  this.firstPlay = true;
 }
 
 Game.prototype.shuffle = function () {
