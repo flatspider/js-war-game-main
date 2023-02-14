@@ -3,7 +3,7 @@ import { Game } from "./game.js";
 // Access scores
 let scoreLeft = document.querySelector(".player-one");
 let scoreRight = document.querySelector(".player-two");
-//Initializes point values to 0.
+// Initializes point values to 0
 scoreLeft.innerHTML = 0;
 scoreRight.innerHTML = 0;
 // Access playing cards
@@ -12,30 +12,28 @@ const $rightCard = document.querySelector(".card2");
 // Access message box
 const $messageBox = document.querySelector(".message");
 
-// Button activates a play step.
+// Button activates a play step
 const $drawButton = document.querySelector(".draw");
 $drawButton.addEventListener("click", playOneStep);
 
-// Two players created with initial names and assigned locations.
-// The names for these can be established with a pop up.
-
+// Allows one click to take place
 let clickStop = false;
+
+// Establishes a new game
+let currentlyOccurringGame = new Game();
 
 // Listen for a click on the new game button.
 const $newGameButton = document.querySelector(".restart-game");
 
 $newGameButton.addEventListener("click", establishNewGame);
 
-let currentlyOccurringGame = new Game();
-
 function establishNewGame() {
   if (clickStop === false) {
-    currentlyOccurringGame.deck.shuffle();
+    currentlyOccurringGame.shuffle();
     currentlyOccurringGame.dealCentralDeck();
     // Only allows for one click to occur.
     clickStop = true;
   }
-
   scoreLeft.innerHTML = currentlyOccurringGame.player1.playerHand.length;
   scoreRight.innerHTML = currentlyOccurringGame.player2.playerHand.length;
 
@@ -80,10 +78,7 @@ function playOneStep() {
     $leftCard.classList.add("riseCard");
     $rightCard.classList.add("riseCard");
   }
-
   setTimeout(clearCardClass, 1100);
-
-  // It is executing this immediately, before the animation can take place.
 }
 
 function clearCardClass() {

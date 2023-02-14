@@ -4,13 +4,17 @@ import { Player } from "./player.js";
 // Used to indicate what the war condition is
 let warNote = false;
 
-function Game({} = {}) {
+function Game() {
   this.deck = new Deck(); //This is an empty deck.
   this.player1 = new Player({ name: "Conor" }); // Access individual players by this.player1
   this.player2 = new Player({ name: "Brendan" });
   this.pot = []; // This will hold cards that will be distributed to each player
   this.turnInformation = [""];
 }
+
+Game.prototype.shuffle = function () {
+  this.deck.shuffle();
+};
 
 Game.prototype.dealCentralDeck = function () {
   // Use the add card function to add cards to each players deck.
@@ -41,8 +45,6 @@ Game.prototype.comparePlayerCards = function () {
 
   let p1card = this.pot[0]["cardValue"];
   let p2card = this.pot[1]["cardValue"];
-
-  // Can I run this recursively? Or as a loop? Come back to the start
 
   if (p1card > p2card) {
     // Player Ones card is larger than Player Two's card.
@@ -76,7 +78,6 @@ Game.prototype.comparePlayerCards = function () {
     } else {
       this.turnInformation = this.player2.name + " has won the turn.";
     }
-
     this.pot = [];
   } else {
     // Adds three cards from each players hand to the pot.
